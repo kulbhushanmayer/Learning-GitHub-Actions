@@ -65,4 +65,24 @@ jobs:
 
       - name: Finishing job
         run: echo "Job One completed successfully!"
+  j4:
+    name: Running on Self-Hosted Runner with single label - 2
+    runs-on: self-hosted
+    steps:
+      - name: Starting job on GitHub-hosted runner
+        run: echo "This job runs on self-hosted runner"
+
+      - name: Display system information
+        run: |
+          echo "Hostname: $(hostname)"
+          echo "OS Version:"
+          lsb_release -a || cat /etc/os-release
+          echo "Runner Name: ${{ runner.name }}"
+          echo "Runner OS: ${{ runner.os }}"
+
+      - name: Simulating work
+        run: sleep 120
+
+      - name: Finishing job
+        run: echo "Job One completed successfully!"
     
