@@ -20,6 +20,8 @@ jobs:
       run_build: true
       run_codeql: false
       run_sonarqube: false
+      run_dockerhub_publish: false
+      run_ghcr_publish: false
     secrets:
       SONAR_TOKEN: ${{ secrets.SONAR_TOKEN }}
       DOCKERHUB_USERNAME: ${{ secrets.DOCKERHUB_USERNAME }}
