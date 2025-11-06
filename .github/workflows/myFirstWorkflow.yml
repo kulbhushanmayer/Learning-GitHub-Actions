@@ -1,4 +1,4 @@
-name: CI Pipeline
+name: CI Pipeline with Reusable Workflow
 # To get a trigger on every push in this repo in any branch
 on:
   push:
