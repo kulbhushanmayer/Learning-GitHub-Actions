@@ -1,5 +1,8 @@
 name: Self-Hosted runners demo
 on: 
+  push:
+    branches:
+      - dev
   workflow_dispatch:
 jobs:
   j1:
