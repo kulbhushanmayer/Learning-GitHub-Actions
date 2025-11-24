@@ -6,7 +6,7 @@ on:
 jobs:
     demo-1:
       name: Demo Job 1
-      runs-on: ubuntu-latest # pick github-hosted runner with label 'ubuntu-latest'
+      runs-on: arc-demo
       steps:
         - name: Display system information
           run: |
@@ -15,9 +15,10 @@ jobs:
             lsb_release -a || cat /etc/os-release
             echo "Runner Name: ${{ runner.name }}"
             echo "Runner OS: ${{ runner.os }}"
+            sleep 30
     demo-2:
       name: Demo job 2
-      runs-on: [self-hosted, python, X64] # pick up self-hosted runner with the label 'self-hosted', 'python' and 'X64', and it will be AND condition
+      runs-on: arc-demo
       steps:
         - name: Display system information
           run: |
