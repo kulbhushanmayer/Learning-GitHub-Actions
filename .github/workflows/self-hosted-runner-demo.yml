@@ -6,7 +6,7 @@ on:
 jobs:
     demo-1:
       name: Demo Job 1
-      runs-on: github-actions-scaleset-demo
+      runs-on: arc-demo
       steps:
         - name: Display system information
           run: |
@@ -18,7 +18,7 @@ jobs:
             sleep 60
     demo-2:
       name: Demo job 2
-      runs-on: github-actions-scaleset-demo
+      runs-on: arc-demo
       steps:
         - name: Display system information
           run: |
