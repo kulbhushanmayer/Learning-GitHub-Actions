@@ -53,5 +53,5 @@ jobs:
         run: |
           IMAGE_TAGS="${{ github.run_id }}-${GITHUB_SHA::7}"
           IMAGE="ghcr.io/kulbhushanmayer/thinknyx_app:${IMAGE_TAGS}"
-          yq e '.spec.template.spec.containers[0].image = "${IMAGE}"' -i k8s/deployment.yaml
+          yq e '.spec.template.spec.containers[0].image = "${IMAGE}"' -i manifests/deployment.yaml
           cat k8s/deployment.yaml
