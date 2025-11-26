@@ -42,4 +42,18 @@ jobs:
           echo "${{ secrets.KUBECONFIG }}" > ~/.kube/config
           kubectl version
           kubectl get nodes
+      - name: Install yq
+        run: |
+          sudo wget -qO /usr/local/bin/yq https://github.com/mikefarah/yq/releases/latest/download/yq_linux_amd64
+          sudo chmod +x /usr/local/bin/yq
+
+      - name: Update Image in Kubernetes Manifest (YAML-safe)
+        run: |
+          IMAGE_TAG="${{ needs.build.outputs.image-tags }}"
+          IMAGE="${{ inputs.image_name }}:${IMAGE_TAG}"
+
+          yq eval \
+            '.spec.template.spec.containers[0].image = strenv(IMAGE)' \
+            k8s/deployment.yaml -i
+          cat k8s/deployment.yaml
       
