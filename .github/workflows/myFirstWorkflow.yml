@@ -29,7 +29,6 @@ jobs:
     uses: kulbhushanmayer/reusable-workflows/.github/workflows/deploy-with-kubectl.yml@main
     with:
       ENVIRONMENT: STAGING
-      NAMESPACE: ${{ vars.NAMESPACE }}
       IMAGE_NAME: ghcr.io/kulbhushanmayer/thinknyx_app
     secrets:
       KUBECONFIG: ${{ secrets.KUBECONFIG }}
