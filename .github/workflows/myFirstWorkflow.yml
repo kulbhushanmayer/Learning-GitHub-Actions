@@ -65,5 +65,5 @@ jobs:
           kubectl apply -f manifests/ -n $NAMESPACE
       - name: verfiy deployment
         run: |
-          kubectl rollout status deployment/thinknyx -n $NAMESPACE
+          kubectl rollout status deployment/thinknyxapp -n $NAMESPACE
           kubectl get all -n $NAMESPACE
