@@ -32,3 +32,8 @@ jobs:
       IMAGE_NAME: ghcr.io/kulbhushanmayer/thinknyx_app
     secrets:
       KUBECONFIG: ${{ secrets.KUBECONFIG }}
+  selenium-tests:
+    needs: deploy-with-kubectl
+    uses: kulbhushanmayer/reusable-workflows/.github/workflows/run-selenium-tests.yml@main
+    with:
+      ENVIRONMENT: STAGING
