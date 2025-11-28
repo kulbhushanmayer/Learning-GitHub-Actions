@@ -34,6 +34,6 @@ jobs:
       KUBECONFIG: ${{ secrets.KUBECONFIG }}
   selenium-tests:
     needs: deploy-with-kubectl
-    uses: kulbhushanmayer/reusable-workflows/.github/workflows/run-selenium-tests.yml@main
+    uses: kulbhushanmayer/reusable-workflows/.github/workflows/run-selenium-tests.yml@demo
     with:
       ENVIRONMENT: STAGING
