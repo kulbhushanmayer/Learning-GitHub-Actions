@@ -4,9 +4,6 @@ on:
   push:
     branches:
       - demo
-  pull_request:
-    branches:
-      - main
 permissions:
   actions: read
   security-events: write
