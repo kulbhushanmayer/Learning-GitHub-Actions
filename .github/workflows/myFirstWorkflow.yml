@@ -48,3 +48,7 @@ jobs:
         run: helm version
       - name: Lint Chart
         run: helm lint charts/
+      - name: Create package
+        run: |
+          helm package charts/
+          ls -ltr .
