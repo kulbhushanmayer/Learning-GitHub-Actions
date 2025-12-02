@@ -62,6 +62,7 @@ jobs:
         run: |
           export IMAGE_TAGS="${{ github.run_id}}-${GITHUB_SHA::7}"
           export VERSION="0.1.0.${IMAGE_TAGS}"
+          echo $VERSION
           yq e 'version = strenv(VERSION)' charts/Chart.yaml -i
           yq e 'appVersion = strenv(IMAGE_TAGS)' charts/Chart.yaml -i
           cat charts/Chart.yaml
