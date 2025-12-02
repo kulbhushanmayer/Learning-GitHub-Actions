@@ -1,9 +1,6 @@
 name: CI Pipeline with Reusable Workflow
 # To get a trigger on every push in this repo in the main branch
 on:
-  push:
-    branches:
-      - main
   pull_request:
     branches:
       - main
