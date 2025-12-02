@@ -58,6 +58,12 @@ jobs:
           export IMAGE_TAGS="${{ github.run_id}}-${GITHUB_SHA::7}"
           yq e '.image.tag = strenv(IMAGE_TAGS)' charts/values.yaml -i
           cat charts/values.yaml
+      - name: update image tag in Chart.yaml
+        run: |
+          export IMAGE_TAGS="${{ github.run_id}}-${GITHUB_SHA::7}"
+          yq e 'version = strenv(IMAGE_TAGS)' charts/Chart.yaml -i
+          yq e 'appVersion = strenv(IMAGE_TAGS)' charts/Chart.yaml -i
+          cat charts/Chart.yaml
       - name: Create package
         run: |
           helm package charts/
