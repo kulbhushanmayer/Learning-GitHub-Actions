@@ -2,7 +2,7 @@ apiVersion: v2
 name: thinknyxapp
 description: A Helm chart for thinknyxapp
 type: application
-version: latest
+version: 0.1.0
 appVersion: latest
 keywords:
   - thinknyx
