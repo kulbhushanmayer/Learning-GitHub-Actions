@@ -10,7 +10,7 @@ permissions:
   actions: read
   security-events: write
   packages: write
-  contents: read
+  contents: write
 
 env:
   OCI_REGISTRY: ghcr.io
