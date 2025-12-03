@@ -42,6 +42,7 @@ jobs:
   #     ENVIRONMENT: STAGING
 
   publish-helm-chart:
+    environment: PRODUCTION
     #needs: selenium-tests
     runs-on: github-actions-scaleset-demo
     steps:
