@@ -4,6 +4,5 @@ Service Details
   Service Type {{ .Values.service.type }}
   Service Port {{ .Values.service.port }}
 
-To access the application (NodePort):
-
+To access the application (NodePort)
   kubectl get svc {{ include "thinknyxapp.fullname" . }}-svc
