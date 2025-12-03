@@ -1,5 +1,4 @@
 Thank you for installing {{ include "thinknyxapp.fullname" . }}!
-
 Service Details
   Service Type {{ .Values.service.type }}
   Service Port {{ .Values.service.port }}
