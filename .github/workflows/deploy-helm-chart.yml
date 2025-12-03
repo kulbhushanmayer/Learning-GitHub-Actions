@@ -19,7 +19,7 @@ jobs:
   deploy-helm-chart:
     environment: PRODUCTION
     runs-on: github-actions-scaleset-demo
-    #if: github.event.pull_request.merged == true
+    # if: github.event.pull_request.merged == true
     steps:
       - name: Checkout Repo
         uses: actions/checkout@v5
