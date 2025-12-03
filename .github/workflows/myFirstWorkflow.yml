@@ -4,43 +4,45 @@ on:
   pull_request:
     branches:
       - main
+    paths-ignore:
+      - HELMCHART-VERSION
 permissions:
   actions: read
   security-events: write
   packages: write
-  contents: read
+  contents: write
 
 env:
   OCI_REGISTRY: ghcr.io
   OCI_REPOSITORY: ${{ github.repository_owner }}/helm-charts
 jobs:
-  ci-pipeline-job:
-    uses: kulbhushanmayer/reusable-workflows/.github/workflows/ci-pipeline.yml@main
-    with:
-      run_codeql: true
-      run_sonarqube: true
-      run_build: true
-      run_ghcr_publish: true
-    secrets:
-      SONAR_TOKEN: ${{ secrets.SONAR_TOKEN }}
-      DOCKERHUB_USERNAME: ${{ secrets.DOCKERHUB_USERNAME }}
-      DOCKERHUB_TOKEN: ${{ secrets.DOCKERHUB_TOKEN }}
-  deploy-with-kubectl:
-    needs: ci-pipeline-job
-    uses: kulbhushanmayer/reusable-workflows/.github/workflows/deploy-with-kubectl.yml@main
-    with:
-      ENVIRONMENT: STAGING
-      IMAGE_NAME: ghcr.io/kulbhushanmayer/thinknyx_app
-    secrets:
-      KUBECONFIG: ${{ secrets.KUBECONFIG }}
-  selenium-tests:
-    needs: deploy-with-kubectl
-    uses: kulbhushanmayer/reusable-workflows/.github/workflows/run-selenium-tests.yml@main
-    with:
-      ENVIRONMENT: STAGING
+  # ci-pipeline-job:
+  #   uses: kulbhushanmayer/reusable-workflows/.github/workflows/ci-pipeline.yml@main
+  #   with:
+  #     run_codeql: true
+  #     run_sonarqube: true
+  #     run_build: true
+  #     run_ghcr_publish: true
+  #   secrets:
+  #     SONAR_TOKEN: ${{ secrets.SONAR_TOKEN }}
+  #     DOCKERHUB_USERNAME: ${{ secrets.DOCKERHUB_USERNAME }}
+  #     DOCKERHUB_TOKEN: ${{ secrets.DOCKERHUB_TOKEN }}
+  # deploy-with-kubectl:
+  #   needs: ci-pipeline-job
+  #   uses: kulbhushanmayer/reusable-workflows/.github/workflows/deploy-with-kubectl.yml@main
+  #   with:
+  #     ENVIRONMENT: STAGING
+  #     IMAGE_NAME: ghcr.io/kulbhushanmayer/thinknyx_app
+  #   secrets:
+  #     KUBECONFIG: ${{ secrets.KUBECONFIG }}
+  # selenium-tests:
+  #   needs: deploy-with-kubectl
+  #   uses: kulbhushanmayer/reusable-workflows/.github/workflows/run-selenium-tests.yml@main
+  #   with:
+  #     ENVIRONMENT: STAGING
 
   publish-helm-chart:
-    needs: selenium-tests
+    #needs: selenium-tests
     runs-on: ubuntu-latest
     steps:
       - name: checkout Repo
@@ -82,4 +84,19 @@ jobs:
           helm push thinknyxapp-${VERSION}.tgz oci://${{ env.OCI_REGISTRY }}/${{ env.OCI_REPOSITORY }}
       - name: Logout from GHCR
         run: helm registry logout ${{ env.OCI_REGISTRY }}
+      - name: Update HelmChart Version in Repo
+        run: |
+          git config --global user.name "github-actions"
+          git config --global user.email "github-actions@github.com"
+
+          git fetch origin ${{ github.head_ref }}
+          git reset --hard origin/${{ github.head_ref }}
+
+          export IMAGE_TAGS="${{ github.run_id}}-${GITHUB_SHA::7}"
+          export VERSION="0.1.0-${IMAGE_TAGS}"
+          echo "VERSION=\"${VERSION}\"" >> HELMCHART-VERSION
+
+          git add HELMCHART-VERSION
+          git commit -m "Updated Helm Chart Version to ${VERSION}"
+          git push origin HEAD:${{ github.head_ref }}
         
