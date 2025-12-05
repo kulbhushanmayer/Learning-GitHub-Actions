@@ -34,7 +34,6 @@ jobs:
           chmod 600 $HOME/.kube/config
       - name: Reading HELMCHART version
         run: |
-          # Add this file during helm chart creation
           source HELMCHART-VERSION
           echo "VERSION=$VERSION" >> $GITHUB_ENV
           echo "Deploying Helm Chart Version: ${VERSION}"

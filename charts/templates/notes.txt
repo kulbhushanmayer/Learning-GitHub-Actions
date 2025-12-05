@@ -1,8 +1,8 @@
 Thank you for installing {{ include "thinknyxapp.fullname" . }}!
 
 Service:
-  Type is {{ .Values.service.type }}
-  Port is {{ .Values.service.port }}
+  Type: {{ .Values.service.type }}
+  Port: {{ .Values.service.port }}
 
-To access the app (NodePort)
+To access the app (NodePort):
   kubectl get svc {{ include "thinknyxapp.fullname" . }}-svc
