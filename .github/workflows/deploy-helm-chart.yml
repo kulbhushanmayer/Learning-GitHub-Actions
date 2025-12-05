@@ -4,9 +4,6 @@ on:
     types: [closed]
     branches:
       - main
-  push:
-    branches:
-      - main
 permissions:
   contents: read
   packages: read
@@ -19,7 +16,7 @@ jobs:
   deploy-helm-chart:
     environment: PRODUCTION
     runs-on: github-actions-scaleset-demo
-    #if: github.event.pull_request.merged == true
+    if: github.event.pull_request.merged == true
     steps:
       - name: Checkout Repo
         uses: actions/checkout@v5
@@ -37,7 +34,6 @@ jobs:
           chmod 600 $HOME/.kube/config
       - name: Reading HELMCHART version
         run: |
-          # Add this file during helm chart creation
           source HELMCHART-VERSION
           echo "VERSION=$VERSION" >> $GITHUB_ENV
           echo "Deploying Helm Chart Version: ${VERSION}"
