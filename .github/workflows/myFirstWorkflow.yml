@@ -48,7 +48,7 @@ jobs:
       - name: checkout Repo
         uses: actions/checkout@v5
       - name: Publish Helm Chart to OCI Registry
-        uses: kulbhushanmayer/helm-actions@v1.0
+        uses: kulbhushanmayer/helm-actions@v1.1
         with: 
           oci_registry: ${{ env.OCI_REGISTRY }}
           oci_repository: ${{ env.OCI_REPOSITORY }}
