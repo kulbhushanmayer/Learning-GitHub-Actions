@@ -47,6 +47,8 @@ jobs:
     steps:
       - name: checkout Repo
         uses: actions/checkout@v5
+        with:
+          fetch-depth: 0
       - name: Publish Helm Chart to OCI Registry
         uses: kulbhushanmayer/helm-actions@v1.0
         with: 
