@@ -14,7 +14,7 @@ permissions:
 
 env:
   OCI_REGISTRY: ghcr.io
-    : ${{ github.repository_owner }}/helm-charts
+  OCI_REPOSITORY: ${{ github.repository_owner }}/helm-charts
 jobs:
   ci-pipeline-job:
     uses: kulbhushanmayer/reusable-workflows/.github/workflows/ci-pipeline.yml@main
